@@ -589,25 +589,25 @@ input[type="search"]::-webkit-search-cancel-button {
   align-items: center;
   gap: 6px;
 }
-/* Level 2: leaderboards are a segmented control under the view tabs. */
+/* Level 2: compact categories with accessible dropdown boards. */
 .board-tabs {
   display: flex;
-  gap: 2px;
+  flex-wrap: wrap;
+  gap: 5px;
   width: fit-content;
   max-width: calc(100% - 48px);
   margin: 16px 24px 0;
   padding: 3px;
   border-radius: calc(var(--radius-s) + 3px);
   background: var(--surface-3);
-  overflow-x: auto;
-  scrollbar-width: none;
 }
-.board-tabs::-webkit-scrollbar {
-  display: none;
-}
-.board-tab {
-  min-height: 30px;
-  padding: 5px 11px;
+.board-category { position: relative; }
+.board-category-trigger {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 6px 10px;
   border: 1px solid transparent;
   border-radius: var(--radius-s);
   background: transparent;
@@ -615,19 +615,60 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 13px;
   white-space: nowrap;
 }
-.board-tab:hover {
+.board-category-trigger:hover,
+.board-category-trigger[aria-expanded="true"] {
   background: color-mix(in srgb, var(--surface) 60%, transparent);
-  border-color: transparent;
   color: var(--ink);
 }
-.board-tab.selected,
-.board-tab.selected:hover {
+.board-category-trigger.selected {
   background: var(--surface);
   border-color: var(--line-2);
   color: var(--ink);
-  font-weight: 600;
   box-shadow: var(--shadow-1);
 }
+.board-category-title { font-weight: 600; }
+.board-category-current {
+  max-width: 240px;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+}
+.board-category-current::before { content: "· "; }
+.board-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  min-width: max(100%, 260px);
+  max-width: min(360px, calc(100vw - 48px));
+  max-height: min(480px, calc(100vh - 190px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 5px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+}
+.board-category:last-child .board-options { left: auto; right: 0; }
+.board-option {
+  padding: 9px 11px;
+  border: 0;
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 13px;
+  text-align: left;
+  white-space: normal;
+}
+.board-option:hover,
+.board-option:focus-visible,
+.board-option.selected {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+.board-option.selected { font-weight: 600; }
 /* One muted line of context: board source, or the view's accounting basis. */
 .view-context {
   display: flex;
@@ -979,6 +1020,16 @@ input[type="search"]::-webkit-search-cancel-button {
   color: var(--faint);
   font-size: 11.5px;
 }
+.hover-harness {
+  display: grid;
+  gap: 2px;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.hover-harness small { color: var(--faint); font-size: 11px; }
 .point-key {
   padding: 6px 20px 16px;
 }
@@ -2688,4 +2739,36 @@ tbody tr.sentinel-row {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+.research-results {
+  padding: 14px 24px 20px;
+  border-top: 1px solid var(--line-2);
+  font-size: 12.5px;
+}
+.research-results summary {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 650;
+}
+.research-results p { color: var(--muted); margin: 8px 0 12px; }
+.research-results-scroll {
+  max-height: 340px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+}
+.research-results table { width: 100%; border-collapse: collapse; text-align: left; }
+.research-results th,
+.research-results td { padding: 8px 12px; border-bottom: 1px solid var(--line-2); }
+.research-results th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+.research-results td.numeric { white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) {
+  .board-category:last-child .board-options { left: 0; right: auto; }
+  .board-category-current { max-width: 150px; }
 }

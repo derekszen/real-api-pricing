@@ -61,6 +61,8 @@ jobs:
           python scripts/checks/verify_benchmark_configs.py
           python scripts/checks/verify_aa_snapshot.py
           python scripts/checks/verify_deepswe.py
+          python scripts/checks/verify_weirdml.py
+          python scripts/checks/verify_mls_bench_lite.py
           python scripts/checks/verify_palette.py
 
       - name: Rebuild charts, tables and interactive HTML

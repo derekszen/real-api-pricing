@@ -1,0 +1,264 @@
+{
+  "collectedAt": "2026-09-29",
+  "source": "https://mls-bench.com/leaderboard",
+  "sourceSha256": "213cfa65b4147f3e6990a70345b0d96157425417a375741f6b9718eba1f2cdaf",
+  "unit": "Maintainer-displayed normalized task-performance points (0–100 presentation), not percentage of tasks passed or Pass@1. The 30-task Lite track is evaluated with Harbor and a five-hour exploration budget per agent. Harness and effort vary by row; do not treat these as matched-harness comparisons. Model names remain verbatim source labels, not API identity mappings.",
+  "taskCount": 30,
+  "explorationHoursPerAgent": 5,
+  "evaluationPlatform": "Harbor",
+  "methodologySources": [
+    "https://mls-bench.com/blog",
+    "https://arxiv.org/html/2605.08678v1"
+  ],
+  "boards": [
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "name": "MLS-Bench-Lite (maintainer live leaderboard)",
+      "metric": "Normalized task performance (source points)",
+      "url": "https://mls-bench.com/leaderboard",
+      "snapshotDate": "2026-09-29"
+    }
+  ],
+  "scores": [
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Claude Fable 5.1",
+      "variantLabel": "Claude Fable 5.1",
+      "score": 50.3,
+      "secondary": {
+        "rank": 1,
+        "availability": "Closed",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Qwen3.8-Max-0902",
+      "variantLabel": "Qwen3.8-Max-0902",
+      "score": 50.1,
+      "secondary": {
+        "rank": 2,
+        "availability": "Open",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": null,
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "GPT-6 Astra",
+      "variantLabel": "GPT-6 Astra",
+      "score": 50.0,
+      "secondary": {
+        "rank": 3,
+        "availability": "Closed",
+        "agentHarness": "Codex",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Claude Fable 5",
+      "variantLabel": "Claude Fable 5",
+      "score": 49.9,
+      "secondary": {
+        "rank": 4,
+        "availability": "Closed",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": "max",
+        "fallback": true
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Claude Opus 5",
+      "variantLabel": "Claude Opus 5",
+      "score": 49.8,
+      "secondary": {
+        "rank": 5,
+        "availability": "Closed",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Kimi K3",
+      "variantLabel": "Kimi K3",
+      "score": 48.3,
+      "secondary": {
+        "rank": 6,
+        "availability": "Open",
+        "agentHarness": "Kimi-Code",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "GPT 5.6 Sol",
+      "variantLabel": "GPT 5.6 Sol",
+      "score": 46.2,
+      "secondary": {
+        "rank": 7,
+        "availability": "Closed",
+        "agentHarness": "Codex",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Claude Opus 4.8",
+      "variantLabel": "Claude Opus 4.8",
+      "score": 42.8,
+      "secondary": {
+        "rank": 8,
+        "availability": "Closed",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Qwen3.8-Max",
+      "variantLabel": "Qwen3.8-Max",
+      "score": 41.0,
+      "secondary": {
+        "rank": 9,
+        "availability": "Open",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": null,
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "GLM 5.2",
+      "variantLabel": "GLM 5.2",
+      "score": 40.4,
+      "secondary": {
+        "rank": 10,
+        "availability": "Open",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "GPT-5.5",
+      "variantLabel": "GPT-5.5",
+      "score": 35.5,
+      "secondary": {
+        "rank": 11,
+        "availability": "Closed",
+        "agentHarness": "Codex",
+        "reasoningEffort": "xhigh",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Kimi K2.7 Code",
+      "variantLabel": "Kimi K2.7 Code",
+      "score": 35.1,
+      "secondary": {
+        "rank": 12,
+        "availability": "Open",
+        "agentHarness": "Kimi-Code",
+        "reasoningEffort": null,
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Qwen3.7-Max",
+      "variantLabel": "Qwen3.7-Max",
+      "score": 31.7,
+      "secondary": {
+        "rank": 13,
+        "availability": "Closed",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": null,
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Claude Sonnet 5",
+      "variantLabel": "Claude Sonnet 5",
+      "score": 31.4,
+      "secondary": {
+        "rank": 14,
+        "availability": "Closed",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": "max",
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "Kimi K2.6",
+      "variantLabel": "Kimi K2.6",
+      "score": 26.7,
+      "secondary": {
+        "rank": 15,
+        "availability": "Open",
+        "agentHarness": "Kimi-Code",
+        "reasoningEffort": null,
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "mls_bench_lite_maintainer",
+      "model": "DeepSeek-V4 Pro Preview",
+      "variantLabel": "DeepSeek-V4 Pro Preview",
+      "score": 24.4,
+      "secondary": {
+        "rank": 16,
+        "availability": "Open",
+        "agentHarness": "Claude Code",
+        "reasoningEffort": null,
+        "fallback": false
+      },
+      "source": "https://mls-bench.com/leaderboard",
+      "checkedAt": "2026-09-29"
+    }
+  ]
+}

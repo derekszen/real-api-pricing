@@ -43,6 +43,8 @@ export interface Configuration {
   configuration_id: string;
   board: string;
   model: string;
+  /** Verbatim source benchmark model identity, if available. */
+  source_model?: string | null;
   variant: string;
   score: number;
   score_is_estimated?: boolean | null;

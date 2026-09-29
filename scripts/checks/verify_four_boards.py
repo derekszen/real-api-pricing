@@ -16,6 +16,8 @@ BOARDS = {
     "terminal_bench_4": ("Terminal-Bench 4.0", "Resolution Rate %", "TB4终端榜"),
     "aa_terminal_bench_4": ("Terminal-Bench 4.0 (AA)", "Resolution Rate %", "TB4·AA榜"),
     "deepswe_1_1": ("DeepSWE v1.1", "Pass@1 %", "DeepSWE榜"),
+    "weirdml_v3": ("WeirdML v3", "Official score %", "WeirdML机器学习榜"),
+    "mls_bench_lite_maintainer": ("MLS-Bench-Lite (maintainer live leaderboard)", "Normalized task performance (source points)", "MLS-Bench-Lite榜"),
 }
 
 data = json.loads((ROOT / "derived/points.json").read_text(encoding="utf-8"))

@@ -20,7 +20,8 @@ for p in ROOT.joinpath('data').rglob('*.json'):
     json.loads(p.read_text(encoding='utf-8-sig'))
 
 exported = list(exports())
-assert len(exported) == 163
+# Existing overview assets plus 16 per registered board (two languages × two tiers × four exports).
+assert len(exported) == 35 + 16 * len(data['boards'])
 assert len({d for _,d in exported}) == len(exported)
 for source,destination in exported:
     assert destination.is_file(), destination

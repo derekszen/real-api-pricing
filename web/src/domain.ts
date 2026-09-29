@@ -701,6 +701,8 @@ const METRIC_ZH: Record<string, string> = {
   "Coding Agent Index": "编程 Agent 指数",
   "Average task score": "平均任务分",
   "Pass@1 %": "Pass@1 %",
+  "Official score %": "官方综合分 %",
+  "Normalized task performance (source points)": "归一化任务表现（原始点数，非通过率）",
 };
 const EFFORT: Record<string, [string, string]> = {
   none: ["None", "无推理"],
@@ -732,6 +734,18 @@ export function unmeteredNote(p: Point, lang: string): string {
 /** Short badge for a vendor self-reported score. */
 export function selfReportTag(lang: string): string {
   return lang === "zh" ? "厂商自报" : "self-reported";
+}
+/** Harness metadata comes from each source benchmark mapping, never the access plan. */
+export function benchmarkHarnesses(rows: Row[]): { model: string; harness: string; effort: string | null }[] {
+  const found = new Map<string, { model: string; harness: string; effort: string | null }>();
+  for (const row of rows) {
+    const raw = row.mapping?.agent_harness?.trim();
+    if (!raw) continue;
+    const harness = raw === "codex_cli" ? "Codex CLI" : raw === "claude_code" ? "Claude Code" : raw;
+    const entry = { model: row.point.model_display, harness, effort: row.mapping?.reasoning_effort ?? null };
+    found.set(`${entry.model}|${entry.harness}|${entry.effort ?? ""}`, entry);
+  }
+  return [...found.values()];
 }
 /** Localize the bracketed provenance tags baked into variant names. */
 export function variantLabel(variant: string, lang: string): string {
