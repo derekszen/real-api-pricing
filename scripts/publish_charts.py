@@ -17,6 +17,8 @@ BOARDS = {
     'TB4终端榜': ('terminal-bench-4', 'Terminal-Bench 4.0'),
     'TB4·AA榜': ('aa-terminal-bench-4', 'Terminal-Bench 4.0 (AA)'),
     'DeepSWE榜': ('deepswe-1-1', 'DeepSWE v1.1'),
+    'WeirdML机器学习榜': ('weirdml-v3', 'WeirdML v3'),
+    'MLS-Bench-Lite榜': ('mls-bench-lite', 'MLS-Bench-Lite'),
 }
 
 

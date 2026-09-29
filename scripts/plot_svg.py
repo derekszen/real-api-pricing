@@ -21,6 +21,8 @@ BOARDS = {
     "terminal_bench_4": ("TB4终端榜", "Terminal-Bench 4.0"),
     "aa_terminal_bench_4": ("TB4·AA榜", "TB4 (AA)"),
     "deepswe_1_1": ("DeepSWE榜", "DeepSWE v1.1"),
+    "weirdml_v3": ("WeirdML机器学习榜", "WeirdML v3"),
+    "mls_bench_lite_maintainer": ("MLS-Bench-Lite榜", "MLS-Bench-Lite"),
 }
 # 色值与 id 前缀统一来自 config/channel-colors.json；此处只定图例顺序。
 COLORS = palette(["OpenAI", "Anthropic", "xAI", "Cursor", "Kimi", "Zhipu", "MiniMax", "Alibaba",
@@ -328,7 +330,11 @@ def draw(board, meta, points, tier, language="zh"):
             edge = f' stroke="{shade(c, .32)}" stroke-width=".9"' if luminance(c) > .45 else ""
             s.append(f'<rect x="-3.5" y="-3.5" width="7" height="7" rx="1.8" fill="{c}" opacity=".68"{edge}/>')
         s.append('</g>')
-    for p in reversed(frontier):
+    # Dense ML leaderboards: label only two strong frontier positions;
+    # all points retain SVG tooltips and full-data tables.
+    named_frontier = (sorted(frontier, key=lambda p: p[key], reverse=True)[:2]
+                      if board in ("weirdml_v3", "mls_bench_lite_maintainer") else reversed(frontier))
+    for p in named_frontier:
         x, y = sx(p["real_usd_per_mtok"]), sy(p[key])
         lx, ly, anchor = label_position(p, board, x, y)
         name, plan, price = label_lines(p, language, board)
@@ -361,13 +367,13 @@ def draw(board, meta, points, tier, language="zh"):
               "OpenDesign Harness reference; product/quota alignment unverified, not channel measurements."
               if board == "open_design_arena" else
               "Highest archived configuration reference; harness and effort shown. Product/quota alignment unverified, not channel measurements."
-              if board in ("aa_coding_agent_index", "terminal_bench_4", "aa_terminal_bench_4", "deepswe_1_1") else
+              if board in ("aa_coding_agent_index", "terminal_bench_4", "aa_terminal_bench_4", "deepswe_1_1", "weirdml_v3", "mls_bench_lite_maintainer") else
               "Claude Max: permanent allowance estimate from Sep 14; Pro: historical Opus 4.8 measurement. Y uses the top archived variant per model."
           ) if language == "en" else (
               "OpenDesign Harness 配置参考；产品/额度实测配置未对齐，不代表各渠道的实测成绩。"
               if board == "open_design_arena" else
               "最高存档配置参考；标注harness与effort。产品/额度实测配置未对齐，不代表各渠道的实测成绩。"
-              if board in ("aa_coding_agent_index", "terminal_bench_4", "aa_terminal_bench_4", "deepswe_1_1") else
+              if board in ("aa_coding_agent_index", "terminal_bench_4", "aa_terminal_bench_4", "deepswe_1_1", "weirdml_v3", "mls_bench_lite_maintainer") else
               "Claude Max：9/14 起永久额度估算；Pro：Opus 5 周池面板反推。Y 取同模型存档最高分变体。"
           )) + ((" ≈$0 = SWE-2 promo: unmetered on Devin Pro/Max/Teams until 2026-10-31, not permanent; TB4 score self-reported by Cognition."
                  if language == "en" else " ≈$0 为 SWE-2 促销价：Devin Pro/Max/Teams 至 2026-10-31 不计额度，非永久口径；TB4 分数为 Cognition 自报。")

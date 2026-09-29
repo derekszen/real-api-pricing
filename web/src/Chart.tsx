@@ -32,6 +32,8 @@ import {
   unmeteredNote,
   selfReportTag,
   variantLabel,
+  benchmarkHarnesses,
+  effortLabel,
   type Lock,
   searchCandidates,
   searchHits,
@@ -950,9 +952,11 @@ export default function Chart({
 
   const hoverGroup = hoverKey ? gs.find((g) => g.key === hoverKey) : undefined;
   const hoverPoint = hoverGroup?.rows[0]?.point;
+  const hoverHarnesses = hoverGroup ? benchmarkHarnesses(hoverGroup.rows) : [];
+  const distinctHoverModels = new Set(hoverHarnesses.map((row) => row.model)).size > 1;
   const hoverBadge = hoverGroup ? badges.some((b) => b.key === hoverGroup.key) : false;
   const CARD_WIDTH = 256;
-  const CARD_HEIGHT = 150;
+  const CARD_HEIGHT = 150 + (hoverHarnesses.length ? 26 + hoverHarnesses.length * (distinctHoverModels ? 32 : 19) : 0);
   const hoverCard =
     hoverGroup && width
       ? (() => {
@@ -1073,6 +1077,17 @@ export default function Chart({
             {hoverGroup.rows[0]?.mapping?.variant && (
               <div className="hover-variant">
                 {variantLabel(hoverGroup.rows[0].mapping.variant, state.lang)}
+              </div>
+            )}
+            {hoverHarnesses.length > 0 && (
+              <div className="hover-harness">
+                <small>{zh ? "评测框架" : "Benchmark harness"}</small>
+                {hoverHarnesses.map((row) => (
+                  <span key={`${row.model}|${row.harness}|${row.effort ?? ""}`}>
+                    {distinctHoverModels && <>{row.model} · </>}
+                    {row.harness}{row.effort && <> · {effortLabel(row.effort, state.lang)}</>}
+                  </span>
+                ))}
               </div>
             )}
             <div className="hover-stats">

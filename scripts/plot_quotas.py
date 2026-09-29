@@ -77,6 +77,8 @@ BOARD_CN = {
     "terminal_bench_4": "TB4终端榜",
     "aa_terminal_bench_4": "TB4·AA榜",
     "deepswe_1_1": "DeepSWE榜",
+    "weirdml_v3": "WeirdML机器学习榜",
+    "mls_bench_lite_maintainer": "MLS-Bench-Lite榜",
 }
 
 

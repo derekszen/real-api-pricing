@@ -132,9 +132,13 @@ Terminal-Bench 4.0 是 Stanford / Harbor / Laude Institute 托管的 66 任务�
 
 Terminal-Bench 4.0（AA）是 Artificial Analysis 用自家 harness 跑的同一套题（快照 2026-09-23），因 agent scaffolding 不同独立成榜。它覆盖了官方榜尚未收录的模型——Claude Opus 5.5（max 59.6，五档全存档）、MiMo V2.6 Pro（34.85，目前唯一第三方 TB4 分）和 Step 5（33.3）。
 
+### 机器学习榜单探索
+
+图表的**机器学习**菜单只收两个有多模型、由维护者发布的榜单（快照均为 2026-09-29）：[WeirdML v3](https://htihle.github.io/weirdml.html) 测试 11 项陌生数据建模任务，官方成绩综合 80% 对数 token 进展与 20% 最终最好结果，**不是原始准确率**；[MLS-Bench-Lite](https://mls-bench.com/leaderboard) 测试 30 项 ML 方法发明任务，归一化得分**不是通过率**。软件工程榜单单列在**编程**菜单。悬停查看官方评测框架和推理档位，点击看来源配置；未收录定价的榜单模型仍列于公开成绩表，不会被凭空赋予价格或零分。横轴是本站订阅/API 单价，**不是运行评测框架的成本**。单模型或仅论文附表的实验不纳入本次机器学习菜单。
+
 [全配置交互图](charts/zh/pareto/帕累托交互图.html) 默认展示每模型最高分汇总，可切换全部存档配置，并提供思考强度档位选择。下载HTML后本地打开，Plotly需要联网。目前全部采用参考映射，尚不是已验证产品配置的严格前沿。
 
-[评测配置JSON](derived/benchmark-configurations.json) / [CSV](derived/benchmark-configurations.csv) 完整保留<!-- stat:configs_total -->330<!-- /stat -->条记录、原始标签、已知harness/effort、来源分数区间和来源任务成本。[套餐配置映射JSON](derived/benchmark-points.json) / [CSV](derived/benchmark-points.csv) 包含<!-- stat:refs_total -->1590<!-- /stat -->条明确参考映射，保留低effort配置。Composer Standard/Fast只匹配本模式，缺失时留空；未知harness、effort、区间均不推测。
+[评测配置JSON](derived/benchmark-configurations.json) / [CSV](derived/benchmark-configurations.csv) 完整保留<!-- stat:configs_total -->360<!-- /stat -->条记录、原始标签、已知harness/effort、来源分数区间和来源任务成本。[套餐配置映射JSON](derived/benchmark-points.json) / [CSV](derived/benchmark-points.csv) 包含<!-- stat:refs_total -->1699<!-- /stat -->条明确参考映射，保留低effort配置。Composer Standard/Fast只匹配本模式，缺失时留空；未知harness、effort、区间均不推测。
 
 来源任务成本的均值和中位数分别保留，不作为订阅内任务成本。分数区间可在交互图悬停查看，目前尚不参与前沿筛选。额度数值范围、稳健前沿和负载敏感性分析留待后续；不把定性置信度编成误差百分比。
 

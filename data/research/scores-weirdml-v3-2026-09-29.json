@@ -1,0 +1,365 @@
+{
+  "collectedAt": "2026-09-29",
+  "generatedAt": "2026-09-29T07:08:03Z",
+  "sourceCommit": "19bc37d",
+  "sourceSha256": "7ad78838e827a19a14e56f9ffbafb1f13a93b56931a3ddfe90534e126e0e8a2b",
+  "sourcePreparedData": "https://htihle.github.io/assets/data/weirdml_v3.json",
+  "taskCount": 11,
+  "configurationCount": 15,
+  "unit": "Official score (%) = 80% normalized area under best-so-far effective score on a log equivalent-token axis (500k–50M), plus 20% final best. Equal weight per task; hinted/hintless twins split their task weight. Effective scores are not raw accuracy. Runs on distinct Codex CLI / Claude Code / other harnesses are reference configurations, not product-plan measurements. Source mean API cost per run is not the chart's subscription $/MTok x coordinate.",
+  "boards": [
+    {
+      "boardId": "weirdml_v3",
+      "name": "WeirdML v3",
+      "metric": "Official score %",
+      "url": "https://htihle.github.io/weirdml.html",
+      "snapshotDate": "2026-09-29"
+    }
+  ],
+  "excludedSourceModels": [
+    {
+      "id": "glm-5.3-flash-novita-opencode",
+      "missing_configurations": [
+        "night_school",
+        "shattered_prior",
+        "shattered_prior--nohints",
+        "ship_detect",
+        "ship_tune",
+        "splash_generalize",
+        "tod_pipeline--nohints",
+        "weirdml_bonanza"
+      ]
+    },
+    {
+      "id": "grok-4.7-xai-xhigh-codex",
+      "missing_configurations": [
+        "tod_pipeline--nohints",
+        "weirdml_bonanza"
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "boardId": "weirdml_v3",
+      "model": "gpt-6-astra",
+      "variantLabel": "GPT-6 Astra (xhigh)",
+      "score": 42.220231363636366,
+      "secondary": {
+        "agentHarness": "codex_cli",
+        "harnessVersions": [
+          "0.154.0"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.985750856986229,
+        "ciPlus": 1.8981874794285147,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 27.85400378787879,
+        "runs": 76,
+        "sourceId": "gpt-6-astra-xhigh-openrouter",
+        "sourceSlug": "openai/gpt-6-astra",
+        "meanFinalBest": 0.5404530212121212
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "claude-opus-5.5",
+      "variantLabel": "Claude Opus 5.5 (xhigh)",
+      "score": 31.20028142857143,
+      "secondary": {
+        "agentHarness": "claude_code",
+        "harnessVersions": [
+          "2.1.280"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.21407939663397,
+        "ciPlus": 1.1873701725343224,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 10.249390519480519,
+        "runs": 77,
+        "sourceId": "opus-5.5",
+        "sourceSlug": "anthropic/claude-opus-5.5",
+        "meanFinalBest": 0.49830967402597404
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "claude-fable-5.1",
+      "variantLabel": "Claude Fable 5.1 (xhigh)",
+      "score": 25.970212727272727,
+      "secondary": {
+        "agentHarness": "claude_code",
+        "harnessVersions": [
+          "2.1.270"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.3606622219867397,
+        "ciPlus": 1.330104562601889,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 31.934821818181817,
+        "runs": 75,
+        "sourceId": "fable-5.1",
+        "sourceSlug": "anthropic/claude-fable-5.1",
+        "meanFinalBest": 0.4352721909090909
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "gpt-6-sol",
+      "variantLabel": "GPT-6 Sol (xhigh)",
+      "score": 19.731756666666666,
+      "secondary": {
+        "agentHarness": "codex_cli",
+        "harnessVersions": [
+          "0.156.0"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.2776367117401577,
+        "ciPlus": 1.3147428114963482,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 6.905421212121212,
+        "runs": 76,
+        "sourceId": "gpt-6-sol-xhigh-openrouter",
+        "sourceSlug": "openai/gpt-6-sol",
+        "meanFinalBest": 0.2756275515151515
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "claude-opus-5",
+      "variantLabel": "Claude Opus 5 (xhigh)",
+      "score": 19.01117537878788,
+      "secondary": {
+        "agentHarness": "claude_code",
+        "harnessVersions": [
+          "2.1.270"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.7050468596155426,
+        "ciPlus": 1.65944859048955,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 25.262239242424243,
+        "runs": 60,
+        "sourceId": "opus-5",
+        "sourceSlug": "anthropic/claude-opus-5",
+        "meanFinalBest": 0.325382071969697
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "claude-fable-5",
+      "variantLabel": "Claude Fable 5 (xhigh)",
+      "score": 15.586933333333333,
+      "secondary": {
+        "agentHarness": "claude_code",
+        "harnessVersions": [
+          "2.1.270"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 2.012878504858289,
+        "ciPlus": 2.033364214556224,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 52.85670787878788,
+        "runs": 42,
+        "sourceId": "fable-5",
+        "sourceSlug": "anthropic/claude-fable-5",
+        "meanFinalBest": 0.2786194878787879
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "gpt-5.6-sol",
+      "variantLabel": "GPT-5.6 Sol (xhigh)",
+      "score": 14.992224545454548,
+      "secondary": {
+        "agentHarness": "codex_cli",
+        "harnessVersions": [
+          "0.154.0"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.386439647892697,
+        "ciPlus": 1.3604932759542478,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 6.2785709090909085,
+        "runs": 75,
+        "sourceId": "gpt-5.6-sol-xhigh-openrouter",
+        "sourceSlug": "openai/gpt-5.6-sol",
+        "meanFinalBest": 0.21448963636363635
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "gpt-6-luna",
+      "variantLabel": "GPT-6 Luna (xhigh)",
+      "score": 7.874124242424243,
+      "secondary": {
+        "agentHarness": "codex_cli",
+        "harnessVersions": [
+          "0.156.0"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.0092429436736383,
+        "ciPlus": 1.0155252783897186,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 0.3214727272727273,
+        "runs": 90,
+        "sourceId": "gpt-6-luna-xhigh-openrouter",
+        "sourceSlug": "openai/gpt-6-luna",
+        "meanFinalBest": 0.12022755303030302
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "kimi-k3",
+      "variantLabel": "Kimi K3 (high, Kimi Code)",
+      "score": 7.420949621212121,
+      "secondary": {
+        "agentHarness": "kimi_code",
+        "harnessVersions": [
+          "2.0.0"
+        ],
+        "reasoningEffort": "high",
+        "ciMinus": 1.4630907095925068,
+        "ciPlus": 1.470053052456147,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 19.525162878787878,
+        "runs": 58,
+        "sourceId": "kimi-k3-fireworks-high-kimi-code",
+        "sourceSlug": "moonshotai/kimi-k3",
+        "meanFinalBest": 0.1562174696969697
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "gemini-3.8-flash",
+      "variantLabel": "Gemini 3.8 Flash (high)",
+      "score": 7.378749090909091,
+      "secondary": {
+        "agentHarness": "gemini_cli",
+        "harnessVersions": [
+          "0.59.0"
+        ],
+        "reasoningEffort": "high",
+        "ciMinus": 1.007867513496194,
+        "ciPlus": 0.9711868645493205,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 3.9440827272727272,
+        "runs": 75,
+        "sourceId": "gemini-3.8-flash-aistudio-high",
+        "sourceSlug": "google/gemini-3.8-flash",
+        "meanFinalBest": 0.14574070909090908
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "claude-opus-4.5",
+      "variantLabel": "Claude Opus 4.5 (high)",
+      "score": 6.5148765151515144,
+      "secondary": {
+        "agentHarness": "claude_code",
+        "harnessVersions": [
+          "2.1.270"
+        ],
+        "reasoningEffort": "high",
+        "ciMinus": 1.5350230448210498,
+        "ciPlus": 1.5228887282797112,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 8.70339090909091,
+        "runs": 42,
+        "sourceId": "opus-4.5",
+        "sourceSlug": "anthropic/claude-opus-4.5",
+        "meanFinalBest": 0.07125567424242425
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "deepseek-v4.1-flash",
+      "variantLabel": "DeepSeek V4.1 Flash (high, Novita, codex)",
+      "score": 6.2291007575757575,
+      "secondary": {
+        "agentHarness": "codex_cli",
+        "harnessVersions": [
+          "0.156.0"
+        ],
+        "reasoningEffort": "high",
+        "ciMinus": 1.3952383323839728,
+        "ciPlus": 1.3923915134964746,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 0.47771060606060606,
+        "runs": 57,
+        "sourceId": "deepseek-v4.1-flash-novita-high-codex",
+        "sourceSlug": "deepseek/deepseek-v4.1-flash",
+        "meanFinalBest": 0.13277797727272728
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "deepseek-v4.1-flash",
+      "variantLabel": "DeepSeek V4.1 Flash (high, Novita)",
+      "score": 5.946331818181818,
+      "secondary": {
+        "agentHarness": "opencode",
+        "harnessVersions": [
+          "1.18.30"
+        ],
+        "reasoningEffort": "high",
+        "ciMinus": 1.766695916482675,
+        "ciPlus": 1.755217154518463,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 0.7370795454545455,
+        "runs": 30,
+        "sourceId": "deepseek-v4.1-flash-novita-high-opencode",
+        "sourceSlug": "deepseek/deepseek-v4.1-flash",
+        "meanFinalBest": 0.11577238636363636
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "boardId": "weirdml_v3",
+      "model": "gpt-5.6-luna",
+      "variantLabel": "GPT-5.6 Luna (xhigh)",
+      "score": 5.157952272727273,
+      "secondary": {
+        "agentHarness": "codex_cli",
+        "harnessVersions": [
+          "0.154.0"
+        ],
+        "reasoningEffort": "xhigh",
+        "ciMinus": 1.380512770902257,
+        "ciPlus": 1.38340595700162,
+        "ciMethod": "Approximate 95% run-uncertainty interval, partially pooled; see primary source assumptions",
+        "meanCostUsdPerTask": 0.735415909090909,
+        "runs": 52,
+        "sourceId": "gpt-5.6-luna-xhigh-openrouter",
+        "sourceSlug": "openai/gpt-5.6-luna",
+        "meanFinalBest": 0.09344040909090909
+      },
+      "source": "https://htihle.github.io/weirdml.html",
+      "checkedAt": "2026-09-29"
+    }
+  ]
+}

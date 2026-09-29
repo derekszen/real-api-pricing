@@ -12,6 +12,8 @@ python scripts/readme_stats.py
 python scripts/checks/verify_benchmark_configs.py
 python scripts/checks/verify_aa_snapshot.py
 python scripts/checks/verify_deepswe.py
+python scripts/checks/verify_weirdml.py
+python scripts/checks/verify_mls_bench_lite.py
 python scripts/plot_svg.py
 node scripts/render_svg.cjs
 python scripts/build_html.py

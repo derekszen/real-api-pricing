@@ -7,7 +7,7 @@ import re
 # AA 自家 harness（agentHarness=Artificial Analysis）跑的 TB4 与 tbench.ai 官方榜分开计分：
 # 同一套题、不同 agent 配置，两边分数不可互换（实测对拍中位差 ~2.6 分，Grok 4.7 差 11.8）。
 AA_TB4_BOARD = "aa_terminal_bench_4"
-AGENT_BOARDS = {"arena_code", "arena_agent_mode", "aa_coding_agent_index", "open_design_arena", "terminal_bench_4", AA_TB4_BOARD, "deepswe_1_1"}
+AGENT_BOARDS = {"arena_code", "arena_agent_mode", "aa_coding_agent_index", "open_design_arena", "terminal_bench_4", AA_TB4_BOARD, "deepswe_1_1", "weirdml_v3", "mls_bench_lite_maintainer"}
 OPEN_DESIGN_MODELS = {
     "GPT-6 Astra": "gpt-6-astra",
     "DeepSeek V4.1 Flash": "deepseek-v4.1-flash",
@@ -22,6 +22,18 @@ OPEN_DESIGN_MODELS = {
     "Gemini 3.8 Flash": "gemini-3.8-flash",
     "Muse Spark 1.3": "muse-spark-1.3",
     "Kimi K3": "kimi-k3",
+}
+# Verbatim MLS maintainer display names → exact known served model IDs. No family/preview inference.
+MLS_LITE_MODELS = {
+    "Claude Fable 5.1": "claude-fable-5.1", "Qwen3.8-Max-0902": "qwen3.8-max-0902",
+    "GPT-6 Astra": "gpt-6-astra", "Claude Fable 5": "claude-fable-5",
+    "Claude Opus 5": "claude-opus-5", "Kimi K3": "kimi-k3",
+    "GPT 5.6 Sol": "gpt-5.6-sol", "Claude Opus 4.8": "claude-opus-4.8",
+    "Qwen3.8-Max": "qwen3.8-max", "GLM 5.2": "glm-5.2",
+    "GPT-5.5": "gpt-5.5", "Kimi K2.7 Code": "kimi-k2.7-code",
+    "Qwen3.7-Max": "qwen3.7-max", "Claude Sonnet 5": "claude-sonnet-5",
+    "Kimi K2.6": "kimi-k2.6",
+    # DeepSeek-V4 Pro Preview is NOT automatically equated with DeepSeek V4 Pro.
 }
 EFFORT = re.compile(r"(?<![a-z0-9])(xhigh|high|medium|low|max|none|thinking)(?![a-z0-9])", re.I)
 
@@ -50,11 +62,12 @@ def configuration(record, archive):
              and secondary.get("agentHarness") == "Artificial Analysis" else record["boardId"])
     estimated = secondary.get("intelligenceIndexIsEstimated", record.get("scoreIsEstimated"))
     self_reported = bool(secondary.get("selfReported"))
-    model = record.get("model") or (OPEN_DESIGN_MODELS.get(label) if board.startswith("open_design_arena") else None)
+    model = (MLS_LITE_MODELS.get(record["model"]) if board == "mls_bench_lite_maintainer" else
+             record.get("model") or (OPEN_DESIGN_MODELS.get(label) if board.startswith("open_design_arena") else None))
     identity = [board, model, label, record.get("checkedAt"), archive]
     cid = board + ":" + hashlib.sha256(json.dumps(identity).encode()).hexdigest()[:16]
     effort = EFFORT.search(label)
-    declared = params.get("reasoning_effort")
+    declared = secondary.get("reasoningEffort") or params.get("reasoning_effort")
     harness = secondary.get("agentHarness")
     if harness is None and "codex-harness" in label.lower():
         harness = "Codex"
@@ -63,6 +76,7 @@ def configuration(record, archive):
     minus, plus = secondary.get("ciMinus"), secondary.get("ciPlus")
     return dict(
         configuration_id=cid, board=board, model=model,
+        source_model=secondary.get("sourceModelId") or secondary.get("sourceModel") or secondary.get("sourceModelSlug") or secondary.get("sourceSlug"),
         variant=label + (" [AA estimate]" if estimated else "") + (" [vendor self-report]" if self_reported else ""),
         score_is_estimated=estimated, score_is_self_reported=self_reported,
         agent_harness=harness, reasoning_effort=str(declared).lower() if declared else (effort.group(1).lower() if effort else None),
@@ -99,7 +113,7 @@ def mapping(record):
 
 
 def score_fields(record):
-    keys = ("configuration_id", "variant", "score", "score_is_estimated", "score_is_self_reported", "agent_harness", "reasoning_effort", "service_mode",
+    keys = ("configuration_id", "source_model", "variant", "score", "score_is_estimated", "score_is_self_reported", "agent_harness", "reasoning_effort", "service_mode",
             "score_low", "score_high", "mean_cost_usd_per_task", "median_cost_usd_per_task", "source")
     fields = {k: record[k] if record else None for k in keys}
     fields.update(mapping(record) if record else {k: None for k in

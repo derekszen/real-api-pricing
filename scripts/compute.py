@@ -17,7 +17,7 @@ CONVENTIONS = json.loads((DATA / "conventions.json").read_text(encoding="utf-8")
 STANDARD_MIX = CONVENTIONS["standardTokenMix"]
 # terminal_bench_4 只收 tbench.ai 官方 harness 行（含厂商自报附录行）；
 # AA 自家 harness 的 TB4 运行拆到 aa_terminal_bench_4（benchmark_configs.configuration 路由）。
-BOARDS = ("aa_intelligence_index", "terminal_bench_4", "aa_terminal_bench_4", "arena_code", "arena_agent_mode", "aa_coding_agent_index", "open_design_arena", "deepswe_1_1")
+BOARDS = ("aa_intelligence_index", "terminal_bench_4", "aa_terminal_bench_4", "arena_code", "arena_agent_mode", "aa_coding_agent_index", "open_design_arena", "deepswe_1_1", "weirdml_v3", "mls_bench_lite_maintainer")
 SCORE_FILES = (
     "scores-2026-09.json",
     "scores-code-arena-round1-2026-09-06.json",
@@ -38,6 +38,8 @@ SCORE_FILES = (
     "scores-new-models-round1-2026-09-23.json",
     "scores-gpt6sol-round1-2026-09-24.json",
     "scores-gpt6luna-round1-2026-09-26.json",
+    "scores-weirdml-v3-2026-09-29.json",
+    "scores-mls-bench-lite-2026-09-29.json",
 )
 LIST_PRICE_FILES = (
     "list-prices-2026-09.json",

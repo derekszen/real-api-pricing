@@ -1,6 +1,10 @@
 import test from "node:test";
 import { wheelRange } from "./wheelZoom";
 import { unpackData } from "./loadData";
+import { categorizedBoards } from "./BoardPicker";
+import ResearchBoardResults, { publishedResults } from "./ResearchBoardResults";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import assert from "node:assert/strict";
 
 test("Wheel zoom preserves cursor anchor and reversed logarithmic axis direction", () => {
@@ -24,6 +28,7 @@ import {
   csv,
   defaultState,
   accessLine,
+  benchmarkHarnesses,
   displayPlan,
   effortLabel,
   isThirdParty,
@@ -68,10 +73,65 @@ import {
 } from "./chartScene";
 import { channelColors, dotColors, luminance } from "./palette";
 import { readFileSync as readConfig } from "node:fs";
-import type { Group, Point, Row, SiteData } from "./types";
+import type { Configuration, Group, Mapping, Point, Row, SiteData } from "./types";
+
+test("Focused board categories include only the two ML boards and existing coding/general boards", () => {
+  const all = ["aa_intelligence_index", "open_design_arena", "arena_code", "arena_agent_mode",
+    "aa_coding_agent_index", "terminal_bench_4", "aa_terminal_bench_4", "deepswe_1_1",
+    "weirdml_v3", "mls_bench_lite_maintainer", "reclaim_run", "frontierswe_v2"];
+  const categories = categorizedBoards(all);
+  assert.deepEqual(categories.map((category) => category.id), ["general", "coding", "ml"]);
+  assert.deepEqual(categories[2].boards, ["weirdml_v3", "mls_bench_lite_maintainer"]);
+  assert.equal(categories.flatMap((category) => category.boards).length, 10);
+  assert.deepEqual(categorizedBoards(["arena_code"]).map((category) => category.id), ["coding"]);
+});
+
+test("Published ML configurations retain unpriced rows and match pricing by configuration", () => {
+  const configs = [
+    { configuration_id: "unpriced", board: "mls_bench_lite_maintainer", model: "missing", source_model: null, variant: "Missing", score: 19 },
+    { configuration_id: "priced", board: "mls_bench_lite_maintainer", model: "priced", source_model: "Priced source", variant: "Priced", score: 17 },
+    { configuration_id: "other", board: "weirdml_v3", model: "priced", variant: "Other", score: 23 },
+  ] as Configuration[];
+  const point = { id: "point", model: "priced", plan: "API", real_usd_per_mtok: 2 } as Point;
+  const mappings = [{ configuration_id: "priced", board: "mls_bench_lite_maintainer", point_id: "point" }] as Mapping[];
+  const rows = publishedResults("mls_bench_lite_maintainer", configs, mappings, [point]);
+  assert.deepEqual(rows.map(({ entry, priced }) => [entry.configuration_id, priced?.id ?? null]),
+    [["unpriced", null], ["priced", "point"]]);
+  assert.equal(publishedResults("weirdml_v3", configs, mappings, [point])[0].priced, null);
+  const html = renderToStaticMarkup(createElement(ResearchBoardResults, {
+    board: "mls_bench_lite_maintainer", configurations: configs, mappings, points: [point], zh: false,
+  }));
+  assert.match(html, /Missing/);
+  assert.match(html, /No exact price match/);
+  assert.match(html, /Priced source/);
+});
+
+test("Chart hover metadata uses mapped benchmark harness and tolerates missing source metadata", () => {
+  const point = { model_display: "A" } as Point;
+  const mapping = { agent_harness: "codex_cli", reasoning_effort: "high" } as Mapping;
+  assert.deepEqual(benchmarkHarnesses([
+    { point, mapping }, { point, mapping },
+    { point, mapping: { agent_harness: null, reasoning_effort: null } as Mapping },
+    { point, mapping: null },
+  ] as Row[]), [{ model: "A", harness: "Codex CLI", effort: "high" }]);
+});
 const data: SiteData = unpackData(JSON.parse(
   readFileSync(new URL("../public/data/site.json", import.meta.url), "utf8"),
 ));
+
+test("Both published ML boards keep every source configuration, including unpriced MLS rows", () => {
+  for (const board of ["weirdml_v3", "mls_bench_lite_maintainer"]) {
+    const results = publishedResults(board, data.configurations, data.mappings, data.points);
+    assert.ok(results.length > 0);
+    assert.equal(results.length, data.configurations.filter((c) => c.board === board).length);
+    assert.ok(results.some(({ priced }) => priced));
+  }
+  const mls = publishedResults("mls_bench_lite_maintainer", data.configurations, data.mappings, data.points);
+  assert.ok(mls.some(({ priced }) => !priced), "Unpriced MLS source rows must remain listed");
+  const weirdml = publishedResults("weirdml_v3", data.configurations, data.mappings, data.points);
+  assert.ok(weirdml.some(({ entry, priced }) => entry.source_model === "anthropic/claude-opus-4.5" && !priced),
+    "An unpriced WeirdML model must remain visible with its original source identity");
+});
 
 test("Packed website mappings restore every original field without data loss", () => {
   const raw = JSON.parse(readFileSync(new URL("../../derived/benchmark-points.json", import.meta.url), "utf8"));

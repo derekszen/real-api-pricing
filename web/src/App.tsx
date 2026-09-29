@@ -24,6 +24,8 @@ import {
 import { ThemeContext, type Theme } from "./theme";
 import Chart from "./Chart";
 import HeaderActions from "./HeaderActions";
+import BoardPicker from "./BoardPicker";
+import ResearchBoardResults from "./ResearchBoardResults";
 import { unpackData } from "./loadData";
 import Ranking from "./Ranking";
 import ResizeHandle from "./ResizeHandle";
@@ -83,6 +85,8 @@ const boardLabels: Record<string, string> = {
   terminal_bench_4: "Terminal-Bench 4.0",
   aa_terminal_bench_4: "Terminal-Bench 4.0 (AA)",
   deepswe_1_1: "DeepSWE v1.1",
+  weirdml_v3: "WeirdML v3",
+  mls_bench_lite_maintainer: "MLS-Bench-Lite",
 };
 const boardZh: Record<string, string> = {
   arena_code: "Code Arena · 网页开发",
@@ -93,6 +97,50 @@ const boardZh: Record<string, string> = {
   terminal_bench_4: "Terminal-Bench 4.0 终端榜",
   aa_terminal_bench_4: "TB4（AA 实测）",
   deepswe_1_1: "DeepSWE v1.1",
+  weirdml_v3: "WeirdML v3 · 机器学习",
+  mls_bench_lite_maintainer: "MLS-Bench-Lite · ML 研究",
+};
+const boardDescriptions: Record<string, [string, string]> = {
+  aa_intelligence_index: [
+    "Artificial Analysis composite Intelligence Index; a model capability reference, not a measurement of each access plan.",
+    "Artificial Analysis 综合智力指数；模型能力参考值，并非各套餐的实测成绩。",
+  ],
+  open_design_arena: [
+    "OpenDesign Arena design-task quality ranking; scores are reference mappings to priced models.",
+    "OpenDesign Arena 设计任务质量排名；分数按模型映射至定价套餐，仅供参考。",
+  ],
+  terminal_bench_4: [
+    "Terminal-Bench 4.0 terminal-agent task resolution rate; harness and reasoning settings affect results.",
+    "Terminal-Bench 4.0 终端智能体任务解决率；框架及推理配置会影响成绩。",
+  ],
+  aa_terminal_bench_4: [
+    "Artificial Analysis Terminal-Bench 4.0 resolution rate; a separate evaluation from the other TB4 board.",
+    "Artificial Analysis 的 Terminal-Bench 4.0 解决率；与另一 TB4 榜单为不同评测。",
+  ],
+  arena_code: [
+    "Code Arena WebDev Overall ranking; model scores are not measurements of subscription plans.",
+    "Code Arena 网页开发综合排名；模型成绩并非订阅套餐实测值。",
+  ],
+  arena_agent_mode: [
+    "Agent Arena overall agent-mode net improvement; compare within this board, not across benchmark metrics.",
+    "Agent Arena 智能体模式整体净改进；仅在此榜内比较，勿跨评测指标比较。",
+  ],
+  aa_coding_agent_index: [
+    "Artificial Analysis Coding Agent Index; model-level benchmark scores referenced against access prices.",
+    "Artificial Analysis 编程智能体指数；模型级成绩与访问价格作参考对照。",
+  ],
+  deepswe_1_1: [
+    "DeepSWE v1.1 coding-agent pass@1; published configurations may use different reasoning effort.",
+    "DeepSWE v1.1 编程智能体 pass@1；公开配置可能采用不同推理强度。",
+  ],
+  weirdml_v3: [
+    "11 agentic ML tasks. Official score: 80% log-token area + 20% final best, not raw accuracy. Source harnesses differ (Codex CLI, Claude Code). X is plan $/MTok, not benchmark run cost.",
+    "11 项智能体机器学习任务。官方分数：80% 对数 token 曲线面积 + 20% 最终最优值，并非原始准确率。原评测框架不同（Codex CLI、Claude Code）；横轴为套餐每百万 token 单价，并非评测成本。",
+  ],
+  mls_bench_lite_maintainer: [
+    "30 ML research tasks. Maintainer-normalized performance points, not a pass rate. Harbor, five-hour exploration budget; harness and effort vary by model. X is plan $/MTok, not benchmark cost.",
+    "30 项机器学习研究任务。维护者归一化成绩点数，并非通过率。Harbor 平台、五小时探索预算；各模型框架与推理强度不同。横轴为套餐每百万 token 单价，并非评测成本。",
+  ],
 };
 const filterLabels: Record<FilterKey, [string, string]> = {
   vendors: ["Model developer", "模型厂商"],
@@ -750,18 +798,13 @@ function Explorer({
                 </div>
               </div>
               {scored && (
-                <div className="board-tabs" role="group" aria-label={t("Leaderboards", "榜单")}>
-                  {Object.keys(data.boards).map((id) => (
-                    <button
-                      key={id}
-                      className={state.board === id ? "board-tab selected" : "board-tab"}
-                      aria-pressed={state.board === id}
-                      onClick={() => patch({ board: id })}
-                    >
-                      {(zh ? boardZh : boardLabels)[id] || data.boards[id].name}
-                    </button>
-                  ))}
-                </div>
+                <BoardPicker
+                  ids={Object.keys(data.boards)}
+                  selected={state.board}
+                  labels={Object.fromEntries(Object.entries(data.boards).map(([id, board]) => [id, (zh ? boardZh : boardLabels)[id] || board.name]))}
+                  zh={zh}
+                  onSelect={(board) => patch({ board })}
+                />
               )}
               <p className="view-context">
                 {scored ? (
@@ -795,6 +838,9 @@ function Explorer({
                   </span>
                 )}
               </p>
+              {scored && boardDescriptions[state.board] && (
+                <p className="view-context" role="note">{boardDescriptions[state.board][zh ? 1 : 0]}</p>
+              )}
               <div className="toolbar">
                 <button className="select-models" onClick={() => setPanel("models")}>
                   <CheckSquare size={17} />
@@ -1045,6 +1091,10 @@ function Explorer({
                     {t("on the frontier", "前沿坐标")}
                   </span>
                 </div>
+              )}
+              {scored && (state.board === "weirdml_v3" || state.board === "mls_bench_lite_maintainer") && (
+                <ResearchBoardResults board={state.board} configurations={data.configurations}
+                  mappings={data.mappings} points={data.points} zh={zh} />
               )}
               {state.view === "table" && pts.length > 0 && (
                 <div className="table-view">
